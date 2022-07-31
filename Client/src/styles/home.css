@@ -1,0 +1,33 @@
+.left-container {
+  margin-left: 50px;
+  max-width: 35rem;
+}
+
+.slogan {
+  width: 100%;
+}
+
+.slogan > h1 {
+  font-size: 3rem;
+  margin: 0px;
+  font-weight: lighter;
+}
+
+.slogan > p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.5;
+  line-height: 1.5rem;
+}
+
+.left-container > .button-group {
+  margin-top: 3rem;
+}
+
+.meeting-url-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #eff1f2;
+  border-radius: 5px;
+  padding: 15px;
+}

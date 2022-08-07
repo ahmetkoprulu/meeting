@@ -1,5 +1,5 @@
 import { Router } from "express";
-import meeting from "./Routes/meeting";
+import meeting from "./Routes/meetings";
 
 export default () => {
   const app = Router();

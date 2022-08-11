@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import Session, { MSession } from "./Session";
 
-export interface User {
+export interface MUser {
   _id: string;
-  username: string;
   email: string;
   password: string;
+  name: string;
+  birthDate: Date;
   salt: string;
   image: string;
   createdAt: Date;
@@ -14,15 +16,11 @@ export interface User {
 
   setPassword(password: string): void;
   validatePassword(password: string): boolean;
+  createSession(isPersistent: boolean): MSession;
 }
 
 const user = new mongoose.Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      index: true,
-    },
     email: {
       type: String,
       required: true,
@@ -30,6 +28,15 @@ const user = new mongoose.Schema(
     },
     password: {
       type: String,
+    },
+    name: {
+      type: String,
+      required: true,
+      index: true,
+    },
+    birthDate: {
+      type: Date,
+      required: true,
     },
     salt: {
       type: String,
@@ -56,6 +63,23 @@ user.methods.validatePassword = function (password: string): boolean {
   return this.password === hash;
 };
 
+user.methods.createSession = async function (
+  isPersistent: boolean
+): Promise<MSession> {
+  const expires = new Date().setDate(
+    new Date().getDay() + (isPersistent ? 30 : 1)
+  );
+  const session = new Session({
+    userId: this._id,
+    expires: expires,
+    isPersistent: isPersistent,
+    cookie: "",
+  });
+  await session.save();
+
+  return session;
+};
+
 user.methods.generateJWT = function (): string {
   var today = new Date();
   var exp = new Date(today);
@@ -79,4 +103,4 @@ user.methods.toAuthJSON = function (): object {
   };
 };
 
-export default mongoose.model<User & mongoose.Document>("Meetings", user);
+export default mongoose.model<MUser & mongoose.Document>("Users", user);

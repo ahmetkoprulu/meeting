@@ -1,9 +1,11 @@
 import { Router } from "express";
-import meeting from "./Routes/meetings";
+import meetings from "./Routes/meetings";
+import index from "./Routes/home";
 
 export default () => {
   const app = Router();
-  meeting(app);
+  meetings(app);
+  index(app);
 
   return app;
 };

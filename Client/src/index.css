@@ -1,7 +1,25 @@
 @import "./App.css";
 @import "./styles/home.css";
 
+@import "./styles/spacing.css";
+@import "./styles/sizing.css";
 @import "./styles/modal.css";
+@import "./styles/form.css";
+@import "./styles/layout.css";
+
+*,
+*:before,
+*:after,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  -ms-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+}
 
 body {
   font-family: "Google Sans", Roboto, Arial, sans-serif;
@@ -9,41 +27,13 @@ body {
   padding: 0;
 }
 
+div {
+  box-sizing: border-box;
+}
+
 p {
   line-height: 1.3rem;
   font-size: 11pt;
-}
-
-.m-1 {
-  margin: 1rem;
-}
-
-.m-2 {
-  margin: 2rem;
-}
-
-.m-3 {
-  margin: 3rem;
-}
-
-.m-4 {
-  margin: 4rem;
-}
-
-.mr-1 {
-  margin-right: 1rem;
-}
-
-.mr-2 {
-  margin-right: 2rem;
-}
-
-.mr-3 {
-  margin-right: 3rem;
-}
-
-.mr-4 {
-  margin-right: 4rem;
 }
 
 .bg-primary {
@@ -57,7 +47,8 @@ p {
 .btn {
   border: 1px none;
   border-radius: 0.25rem;
-  padding: 0.75rem 1rem;
+  /* padding: 0.75rem 1rem; */
+  padding: 10px 15px;
   font-size: 1rem;
   background-color: transparent;
 }
@@ -91,7 +82,8 @@ p {
 .text-input {
   border: 1px solid #ccc;
   border-radius: 0.25rem;
-  padding: 0.75rem 1rem;
+  /* padding: 0.75rem 1rem; */
+  padding: 10px 15px;
   color: #333;
   font-size: 1rem;
 }
@@ -104,6 +96,10 @@ p {
   width: 50%;
 }
 
+.text-input-lg {
+  width: 100%;
+}
+
 .text-input:focus {
   outline-color: #0d6ae4;
 }
@@ -114,4 +110,13 @@ p {
 
 .text-muted {
   color: #54585d;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
 }

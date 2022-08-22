@@ -12,29 +12,31 @@ export default function Home() {
   };
 
   return (
-    <div className="left-container">
-      <div className="slogan">
-        <h1>Premium video meetings.</h1>
-        <h1>Now free for everyone.</h1>
-        <p>
-          We re-engineered the service we built for secure business meetings,
-          Google Meet, to make it free and avaible for all.
-        </p>
-      </div>
+    <div className="home-container">
+      <div className="left-container">
+        <div className="slogan">
+          <h1>Premium video meetings.</h1>
+          <h1>Now free for everyone.</h1>
+          <p>
+            We re-engineered the service we built for secure business meetings,
+            Google Meet, to make it free and avaible for all.
+          </p>
+        </div>
 
-      <div className="button-group">
-        <button className="btn btn-primary mr-2" onClick={handleClick}>
-          New meeting
-        </button>
-        <JoinInput />
-      </div>
+        <div className="button-group">
+          <button className="btn btn-primary mr-2" onClick={handleClick}>
+            New meeting
+          </button>
+          <JoinInput />
+        </div>
 
-      <Modal
-        isVisible={isVisible}
-        onHide={() => setIsVisible(false)}
-        title="Here is the link to your meeting"
-        content={<MeetingUrl url={url} />}
-      />
+        <Modal
+          isVisible={isVisible}
+          onHide={() => setIsVisible(false)}
+          title="Here is the link to your meeting"
+          content={<MeetingUrl url={url} />}
+        />
+      </div>
     </div>
   );
 }

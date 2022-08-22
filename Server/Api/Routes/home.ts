@@ -20,10 +20,10 @@ export default (app: Router) => {
           error: "Email and password are required",
         });
       }
-
+      console.log(model);
       var user = await User.findOne({ email: model.email });
       if (user == null) {
-        return res.status(400).json({
+        return res.status(404).json({
           error: "Username or password is incorrect",
         });
       }

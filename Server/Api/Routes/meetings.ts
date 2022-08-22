@@ -1,10 +1,11 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { Logger } from "winston";
+import SessionHandler, { AuthenticatableRequest } from "../Middlewares/Session";
 
 const route = Router();
 
 export default (app: Router) => {
-  app.use("/test", route);
+  app.use("/meetings", route);
 
   route.post(
     "/create",

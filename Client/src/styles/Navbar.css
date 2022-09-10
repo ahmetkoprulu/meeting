@@ -1,0 +1,65 @@
+.navbar {
+  display: flex;
+  background-color: white;
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
+  color: black;
+  min-height: 55px;
+  align-items: center;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.navbar-nav {
+  width: 100%;
+}
+
+.navbar-nav > li {
+  float: left;
+}
+
+.navbar-nav li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: black;
+}
+
+/* Change the link color to #111 (black) on hover */
+.navbar-item > li a:hover {
+  background-color: #111;
+}
+
+.navbar-item > .active {
+  background-color: #04aa6d;
+}
+
+.navbar-nav .right {
+  float: right;
+}
+
+.navbar > .navbar-brand {
+  float: left;
+  color: black;
+  text-decoration: none;
+  margin-right: 24px;
+  margin-left: 24px;
+  align-self: center;
+  font-size: larger;
+}
+
+.navbar .profile-img {
+  margin-right: 14px;
+  border-radius: 50%;
+  width: 35px;
+}
+
+.navbar .user-info {
+  display: flex;
+  align-items: center;
+}

@@ -1,30 +1,35 @@
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/login.css";
-import { setCookie } from "../helpers/Cookie";
+import axios, { AxiosError } from "axios";
 import HomeService from "../services/home";
+
+import "../styles/login.css";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    rememberMe: false,
+    confirmPassword: "",
+    name: "",
   });
   const navigate = useNavigate();
 
-  async function onSignIn() {
-    if (!formData.email || !formData.password) return;
-
-    const result = await HomeService.signIn(formData);
-
-    if (result.status !== 200) {
+  async function onSignUp() {
+    if (
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword ||
+      !formData.name
+    )
       return;
+
+    try {
+      await HomeService.signUp(formData);
+
+      navigate("/sign-in");
+    } catch (ex) {
+      console.error(ex);
     }
-    console.log(result.data);
-    setCookie("sid", result.data._id, result.data.expires.toString());
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -50,24 +55,31 @@ export default function Login() {
     <div className="container-view-wide">
       <div className="login-container">
         <div className="text-center login-brand">
-          <h2>Sign In</h2>
+          <h2>Sign Up</h2>
         </div>
         <form className="form py-4 px-4" onSubmit={(e) => e.preventDefault()}>
+          <div className="form-group">
+            <div>Name</div>
+            <input
+              name="name"
+              type="text"
+              className="text-input text-input-lg"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
           <div className="form-group">
             <div>E-Mail</div>
             <input
               name="email"
               type="email"
               className="text-input text-input-lg"
-              aria-describedby="emailHelp"
               value={formData.email}
               onChange={handleChange}
             />
           </div>
           <div className="form-group">
-            <div className="d-flex justify-space-between">
-              <label>Password</label> <a href="/">Forgot?</a>
-            </div>
+            <label>Password</label>
             <input
               name="password"
               type="password"
@@ -76,29 +88,26 @@ export default function Login() {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group form-check">
+          <div className="form-group">
+            <label>Confirm Password</label>
             <input
-              name="rememberMe"
-              type="checkbox"
-              className="form-check-input"
-              checked={formData.rememberMe}
+              name="confirmPassword"
+              type="password"
+              className="text-input text-input-lg"
+              value={formData.confirmPassword}
               onChange={handleChange}
             />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              Remember me
-            </label>
           </div>
-
           <button
             type="submit"
             className="btn btn-primary mb-3 w-100"
-            onClick={onSignIn}
+            onClick={onSignUp}
           >
-            Sign In
+            Sign Up
           </button>
 
           <div className="d-flex justify-center m-4">
-            <a href="/">Create an Account</a>
+            <a href="/">Already have an account?</a>
           </div>
         </form>
       </div>

@@ -11,7 +11,7 @@ export default (app: Router) => {
   app.use("/", route);
 
   route.post(
-    "/login",
+    "/sign-in",
     async (req: Request, res: Response, next: NextFunction) => {
       var model = req.body as MLogin;
 
@@ -20,7 +20,7 @@ export default (app: Router) => {
           error: "Email and password are required",
         });
       }
-      console.log(model);
+
       var user = await User.findOne({ email: model.email });
       if (user == null) {
         return res.status(404).json({
@@ -36,31 +36,32 @@ export default (app: Router) => {
       var session = await user.createSession(model.ispersistent);
 
       res.cookie("sid", session._id, {
+        domain: "http://localhost:3000",
         expires: new Date(session.expires),
         httpOnly: true,
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
       });
 
-      return res.status(200).json(model);
+      return res.status(200).json(session);
     }
   );
 
   route.post(
-    "/register",
+    "/sign-up",
     async (req: Request, res: Response, next: NextFunction) => {
       var model = req.body as MRegister;
 
       if (!model.email) {
         return res.status(400).json({ error: "Email is required" });
       }
+
       if (!model.password) {
         return res.status(400).json({ error: "Password is required" });
       }
+
       if (!model.name) {
         return res.status(400).json({ error: "Name is required" });
-      }
-      if (!model.birthDate) {
-        return res.status(400).json({ error: "BirthDate is required" });
       }
 
       const user = await User.findOne({ email: model.email });
@@ -77,7 +78,7 @@ export default (app: Router) => {
       newUser.setPassword(model.password);
       await newUser.save();
 
-      return res.redirect(307, "/login ");
+      return res.status(200).json();
     }
   );
 
@@ -86,7 +87,8 @@ export default (app: Router) => {
     SessionHandler,
     async (req: AuthenticatableRequest, res: Response, next: NextFunction) => {
       res.clearCookie("sid");
-      return res.redirect(301, "/");
+      // return res.redirect(301, "/");
+      return res.status(200).json();
     }
   );
 };

@@ -11,7 +11,6 @@ export default (app: Router) => {
     "/create",
     async (req: Request, res: Response, next: NextFunction) => {
       var model = req.body;
-      console.log(model);
 
       return res.status(200).json(model);
     }

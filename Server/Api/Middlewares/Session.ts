@@ -11,9 +11,9 @@ async function SessionMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  var cookies = cookie.parse(req.headers.cookie || "");
-  console.log(cookies);
-  var sid = cookies.sid;
+  var sid = req.headers.sid;
+  console.log(sid);
+  if (!sid) return res.status(401).json({ error: "Unauthorized" });
 
   var session = await Session.findOne({ _id: sid });
   if (!session || session.isExpired() || session.isClosed) {
@@ -24,7 +24,9 @@ async function SessionMiddleware(
   if (!user) {
     return res.status(401).json({ error: "Unauthorized" });
   }
-  console.log(cookies);
+
+  req.user = user;
+
   next();
 }
 

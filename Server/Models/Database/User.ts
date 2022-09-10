@@ -36,7 +36,6 @@ const user = new mongoose.Schema(
     },
     birthDate: {
       type: Date,
-      required: true,
     },
     salt: {
       type: String,
@@ -66,9 +65,11 @@ user.methods.validatePassword = function (password: string): boolean {
 user.methods.createSession = async function (
   isPersistent: boolean
 ): Promise<MSession> {
-  const expires = new Date().setDate(
-    new Date().getDay() + (isPersistent ? 30 : 1)
-  );
+  // const expires = new Date().setDate(
+  //   new Date().getDay() + (isPersistent ? 30 : 1)
+  // );
+  const now = new Date();
+  const expires = new Date(now.setMonth(now.getMonth() + 1));
   const session = new Session({
     userId: this._id,
     expires: expires,

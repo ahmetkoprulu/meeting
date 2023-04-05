@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 
 export interface Meeting {
   _id: string;
-  url: string;
+  createdBy: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const meeting = new mongoose.Schema(
   {
-    url: {
+    createdBy: {
       type: String,
       index: false,
     },

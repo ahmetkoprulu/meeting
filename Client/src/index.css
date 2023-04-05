@@ -7,7 +7,11 @@
 @import "./styles/form.css";
 @import "./styles/layout.css";
 
-@import "./styles/Navbar.css";
+@import "./styles/navbar.css";
+@import "./styles/overlay.css";
+@import "./styles/spinner.css";
+
+@import "./styles/meeting.css";
 
 *,
 *:before,
@@ -23,8 +27,17 @@
   box-sizing: border-box !important;
 }
 
+html {
+  height: 100%; /* Fallback CSS for IE 4-6 and older browsers. Note: Without this setting, body below cannot achieve 100% height. */
+  height: 100vh; /* Overrides 100% height in modern HTML5 browsers and uses the viewport's height. Only works in modern HTML5 browsers */
+}
+
 body {
   font-family: "Google Sans", Roboto, Arial, sans-serif;
+  height: auto; /* Allows content to grow beyond the page without overflow */
+  width: auto; /* Allows content to grow beyond the page without overflow */
+  min-height: 100%; /* Starts web page with 100% height. Fallback for IE 4-6 and older browsers */
+  min-height: 100vh; /* Starts web page with 100% height. Uses the viewport's height. Only works in modern HTML5 browsers */
   margin: 0;
   padding: 0;
 }

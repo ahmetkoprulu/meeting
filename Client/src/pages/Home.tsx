@@ -2,12 +2,21 @@ import { useState } from "react";
 import JoinInput from "../components/JoinInput";
 import Modal from "../components/Modal";
 import MeetingUrl from "../components/MeetingUrl";
+import MeetingService from "../services/meeting";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const [url, setUrl] = useState("https://meet.google.com/seg-kasy-wxk");
 
-  let handleClick = () => {
+  let handleClick = async () => {
+    try {
+      var meetingId = await MeetingService.createMetting();
+      setUrl(`http://localhost:3000/meetings/${meetingId}`);
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+
     setIsVisible((prev) => !prev);
   };
 

@@ -7,12 +7,6 @@ export default ({ app }: { app: express.Application }) => {
   /**
    * Health Check endpoints
    */
-  app.get("/status", (req, res) => {
-    res.status(200).end();
-  });
-  app.head("/status", (req, res) => {
-    res.status(200).end();
-  });
 
   // Useful if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
   // It shows the real origin IP in the heroku or Cloudwatch logs
@@ -21,8 +15,12 @@ export default ({ app }: { app: express.Application }) => {
   // Enable Cross Origin Resource Sharing to all origins by default
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: "*",
       credentials: true,
+      allowedHeaders: "*",
+      exposedHeaders: ["sid"],
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false,
     })
   );
 
